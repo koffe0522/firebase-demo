@@ -47,7 +47,7 @@ jobs:
       # テストの実行
       - run:
           name: run test
-          command: npm run jest
+          command: npm run test
       #　デプロイの実行
       - run:
           name: deploy to Firebase Hosting
