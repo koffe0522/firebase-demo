@@ -37,7 +37,7 @@ jobs:
       # rulesのテストに使用するエミュレーターのセットアップ
       - run:
           name: emulators install
-          command: ../node_modules/.bin/firebase setup:emulators:firestore
+          command: ./node_modules/.bin/firebase setup:emulators:firestore
       # キャッシュの保存処理。
       - save_cache:
           paths:
@@ -51,4 +51,4 @@ jobs:
       #　デプロイの実行
       - run:
           name: deploy to Firebase Hosting
-          command: ../node_modules/.bin/firebase --project default deploy --token=$FIREBASE_TOKEN
+          command: ./node_modules/.bin/firebase --project default deploy --token=$FIREBASE_TOKEN
