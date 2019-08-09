@@ -1,0 +1,54 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11-jdk-sid-node
+    # 対象のブランチはmasterのみ
+    branches:
+      only:
+        - master
+
+    working_directory: ~/repo
+
+    steps:
+      # ソースコードのチェックアウト
+      - checkout
+      # キャッシュのリストア処理。
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "functions/package.json" }}
+            - v1-dependencies-
+      # ルートのパッケージをインストール
+      - run:
+          name: root package install
+          command: npm install
+      # functionsへ移動
+      - run:
+          name: change dir functions
+          command: cd functions
+      # パッケージのインストール
+      - run:
+          name: functions package install
+          command: npm install
+      # デプロイに必要なfirebase-toolsのインストール
+      - run: 
+          name: firebase-tools install
+          command: npm install -g firebase-tools
+      # rulesのテストに使用するエミュレーターのセットアップ
+      - run:
+          name: emulators install
+          command: firebase setup:emulators:firestore
+      # キャッシュの保存処理。
+      - save_cache:
+          paths:
+            - node_modules
+            - functions/node_modules
+          key: v1-dependencies-{{ checksum "functions/package.json" }}
+      # テストの実行
+      - run:
+          name: run test
+          command: npm run jest
+      #　デプロイの実行
+      - run:
+          name: deploy to Firebase Hosting
+          command: firebase --project default deploy --token=$FIREBASE_TOKEN
