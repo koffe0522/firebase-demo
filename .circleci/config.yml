@@ -22,6 +22,10 @@ jobs:
       - run:
           name: root package install
           command: npm install
+      # デプロイに必要なfirebase-toolsのインストール
+      - run:
+          name: firebase-tools install
+          command: npm install -D firebase-tools
       # functionsへ移動
       - run:
           name: change dir functions
@@ -30,10 +34,6 @@ jobs:
       - run:
           name: functions package install
           command: npm install
-      # デプロイに必要なfirebase-toolsのインストール
-      - run: 
-          name: firebase-tools install
-          command: npm install -D firebase-tools
       # rulesのテストに使用するエミュレーターのセットアップ
       - run:
           name: emulators install
