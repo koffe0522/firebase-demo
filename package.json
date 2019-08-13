@@ -7,8 +7,7 @@
     "deploy": "firebase deploy",
     "deploy-rules": "firebase deploy --only firestore:rules,storage:rules",
     "serve-hosting": "firebase serve --only hosting",
-    "serve-functions": "firebase serve --only functions",
-    "test": "test"
+    "serve-functions": "firebase serve --only functions"
   },
   "author": "koffee.com",
   "license": "ISC",

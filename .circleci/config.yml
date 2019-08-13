@@ -20,24 +20,16 @@ jobs:
             - v1-dependencies-
       # ルートのパッケージをインストール
       - run:
-          name: root package install
-          command: npm install
-      # デプロイに必要なfirebase-toolsのインストール
-      - run:
-          name: firebase-tools install
-          command: npm install -D firebase-tools
-      # functionsへ移動
-      - run:
-          name: change dir functions
-          command: cd functions
-      # パッケージのインストール
-      - run:
-          name: functions package install
+          name: package install
           command: npm install
       # rulesのテストに使用するエミュレーターのセットアップ
       - run:
           name: emulators install
           command: ./node_modules/.bin/firebase setup:emulators:firestore
+      # functionsのパッケージのインストール
+      - run:
+          name: functions package install
+          command: cd functions/ && ls && npm install
       # キャッシュの保存処理。
       - save_cache:
           paths:
@@ -47,7 +39,7 @@ jobs:
       # テストの実行
       - run:
           name: run test
-          command: npm run test
+          command: ls && npm run test
       #　デプロイの実行
       - run:
           name: deploy to Firebase Hosting
