@@ -29,17 +29,17 @@ jobs:
       # functionsのパッケージのインストール
       - run:
           name: functions package install
-          command: cd functions/ && ls && npm install
+          command: cd functions/ && npm install
       # キャッシュの保存処理。
       - save_cache:
           paths:
             - node_modules
             - functions/node_modules
           key: v1-dependencies-{{ checksum "functions/package.json" }}
-      # テストの実行
+      # functions内のテストの実行
       - run:
           name: run test
-          command: ls && npm run test
+          command: cd functions/ && npm run test
       #　デプロイの実行
       - run:
           name: deploy to Firebase Hosting
