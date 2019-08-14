@@ -9,7 +9,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "npm run serve-firestore & jest"
+    "jest": "jest",
+    "test": "npm run serve-firestore & npm run jest"
   },
   "engines": {
     "node": "8"
