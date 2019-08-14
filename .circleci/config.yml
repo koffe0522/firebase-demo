@@ -39,7 +39,7 @@ jobs:
       # firebase-toolsのインストール
       - run:
           name: firebase-tools install
-          command: npm install -D firebase-tools
+          command: cd functions/ && npm install -D firebase-tools
       # functions内のテストの実行
       - run:
           name: run test
